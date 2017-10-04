@@ -14,20 +14,24 @@
          <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/about">About</a></li>
-            <li><a href="/food">Food</a>
-               <ul>
-                  <li><a href="/food/fridge">Fridge</a></li>
-                  <li><a href="/food/freezer">Freezer</a></li>
-                  <li><a href="/food/pantry">Pantry</a></li>
-               </ul>
-            </li>
+
+            <% if logged_in? %>
+               <li><a href="/food">Food</a>
+                  <ul>
+                     <li><a href="/food/fridge">Fridge</a></li>
+                     <li><a href="/food/freezer">Freezer</a></li>
+                     <li><a href="/food/pantry">Pantry</a></li>
+                  </ul>
+               </li>
+            <% end %>
+
             <li><a href="/guide">Guide</a></li>
          </ul>
       </div>
 
       <div class="menu-right">
          <% if logged_in? %>
-            Logged in as <%= current_user.username %>
+            Logged in as <%= current_user.name %>
             <form action="/session" method="post">
                <input type="hidden" name="_method" value="delete">
                <button type="submit">Logout</button>
@@ -42,7 +46,7 @@
    <body>
 
    <%= yield %>
-<!-- 
+<!--
    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
    <script>

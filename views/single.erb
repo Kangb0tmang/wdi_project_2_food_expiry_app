@@ -1,0 +1,16 @@
+<% current_time = Time.new %>
+<% @days_left = (@food_item.expiry_date - current_time.strftime("%Y-%m-%d").to_date).to_i.abs%>
+
+<div id="single-item" class="">
+   <img src="http://morganfillman.space/400/600" alt="">
+   <h2><%= @food_item.item_name %></h2>
+   <h3>Purchase Date: <%= @food_item.purchase_date.strftime("%d-%m-%Y") %></h3>
+   <h3>Expiry Date: <%= @food_item.expiry_date.strftime("%d-%m-%Y") %></h3>
+   <h4><%= @days_left %> days till expiry date</h4>
+   <h4>Remind me on: <%= @food_item.notification.strftime("%A %d-%m-%Y") %></h3>
+   <div class="">
+      <a href="/food/<%= params[:storage_type] %>/new">Add more food!</a>
+      <a href="/food/<%= params[:storage_type] %>/<%= @food_item.id %>/edit">Edit</a>
+      <a href="/food/<%= params[:storage_type] %>/<%= @food_item.id %>/delete">Delete</a>
+   </div>
+</div>

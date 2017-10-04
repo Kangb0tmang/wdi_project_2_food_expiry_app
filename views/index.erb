@@ -1,6 +1,10 @@
 <!-- home-page -->
 <div id="home" class="">
-   <a href="/login">Login</a>
-   <a href="/login">Sign Up</a>
+   <img src="http://morganfillman.space/300/500" alt="">
+
+   <% if !logged_in? %>
+      <a href="/login">Login</a>
+      <a href="/login">Sign Up</a>
+   <% end %>
 </div>
 <!-- end home-page -->

@@ -1,47 +1,31 @@
 CREATE TABLE users
 (
    id SERIAL4 PRIMARY KEY,
-   username VARCHAR(300) NOT NULL UNIQUE,
    name VARCHAR(300) NOT NULL,
    email VARCHAR(300) NOT NULL UNIQUE,
    password_digest VARCHAR(400) NOT NULL
 );
 
-CREATE TABLE fridge_items
+CREATE TABLE storage_types
+(
+   id SERIAL4 PRIMARY KEY,
+   storage_name VARCHAR(200) NOT NULL
+);
+
+CREATE TABLE food_items
 (
    id SERIAL4 PRIMARY KEY,
    item_name VARCHAR(200) NOT NULL,
    purchase_date DATE NOT NULL,
    expiry_date DATE NOT NULL,
    status VARCHAR(100) NOT NULL,
-   img_url VARCHAR(400) NOT NULL,
-   notification DATE NOT NULL
+   notification DATE NOT NULL,
+   user_id INTEGER NOT NULL,
+   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE RESTRICT,
+   storage_type_id INTEGER NOT NULL,
+   FOREIGN KEY (storage_type_id) REFERENCES storage_types (id) ON DELETE RESTRICT
 );
--- FOREIGN KEY (user_id) REFERENCES users (id) NOT NULL
-
-CREATE TABLE freezer_items
-(
-   id SERIAL4 PRIMARY KEY,
-   item_name VARCHAR(200) NOT NULL,
-   purchase_date DATE NOT NULL,
-   expiry_date DATE NOT NULL,
-   status VARCHAR(100) NOT NULL,
-   img_url VARCHAR(400) NOT NULL,
-   notification DATE NOT NULL
-);
--- FOREIGN KEY (user_id) REFERENCES users (id) NOT NULL
-
-CREATE TABLE pantry_items
-(
-   id SERIAL4 PRIMARY KEY,
-   item_name VARCHAR(200),
-   purchase_date DATE,
-   expiry_date DATE,
-   status VARCHAR(100),
-   img_url VARCHAR(400),
-   notification DATE
-);
--- FOREIGN KEY (user_id) REFERENCES users (id) NOT NULL
+-- img_url VARCHAR(400) NOT NULL, (add later)
 
 CREATE TABLE food_guide
 (

@@ -4,8 +4,9 @@ require 'pg'
 require 'pry'
 
 require_relative 'db_config'
-require_relative 'models/fridge_item'
+require_relative 'models/food_item'
 require_relative 'models/guide'
+require_relative 'models/storage_type'
 require_relative 'models/user'
 
 enable :sessions
@@ -22,10 +23,53 @@ end
 
 # Login/Logout
 get '/login' do
-   session[:user_id] = User.first.id
-   redirect '/food'
+   @message = ""
+   erb :login
 end
 
+post '/session' do
+   user = User.find_by(email: params[:email])
+
+   if user && user.authenticate(params[:password])
+      session[:user_id] = user.id
+      redirect '/food'
+   else
+      @message = "Incorrect email or password"
+      erb :login
+   end
+end
+
+delete '/session' do
+   session[:user_id] = nil
+   redirect '/login'
+end
+
+# Create
+get '/food/:storage_type/new' do
+   unless logged_in?
+      redirect '/login'
+      @message = "Login first to add some food"
+   else
+      erb :new
+   end
+end
+
+post '/food/:storage_type' do
+   food = Food_Item.new
+   food.item_name = params[:item_name]
+   food.purchase_date = params[:purchase_date]
+   food.expiry_date = params[:expiry_date]
+   food.status = 'stored'
+   food.notification = params[:notification]
+   food.user_id = current_user.id
+   @get_storage_type = Storage_Type.find_by(storage_name: params[:storage_type])
+   food.storage_type_id = @get_storage_type.id
+   food.save
+   redirect "/food/#{params[:storage_type]}"
+   # binding.pry
+end
+
+# Read
 get '/' do
    erb :index
 end
@@ -35,33 +79,86 @@ get '/about' do
 end
 
 get '/food' do
-  erb :food
+   unless logged_in?
+      redirect '/login'
+      @message = "Login first to add some food"
+   else
+      erb :food
+   end
 end
 
 get '/food/:storage_type' do
-   params[:storage_type]
-   erb :storage
+   unless logged_in?
+      @message = "Login first to add some food"
+      redirect '/login'
+   else
+      get_storage_type_id = Storage_Type.find_by(storage_name: params[:storage_type]).id
+      @all_food = Food_Item.all.where(storage_type_id: get_storage_type_id)
+      erb :storage
+   end
 end
 
-# Create
-get '/food/fridge/new' do
-  erb :new
+# Single Item view
+get '/food/:storage_type/:id' do
+   unless logged_in?
+      @message = "Login first to add some food"
+      redirect '/login'
+   else
+      @food_item = Food_Item.find(params[:id])
+      erb :single
+   end
 end
 
-post '/food/:storage_type' do
-   # current_user.id
-   Food.new(user: current_user)
-   # binding.pry
-   redirect "/food/#{params[:storage_type]}"
+# Update
+get '/food/:storage_type/:id/edit' do
+   unless logged_in?
+      redirect '/login'
+      @message = "Login first to add some food"
+   else
+      @food_item = Food_Item.find(params[:id])
+      erb :edit
+   end
 end
 
-get '/food/fridge/edit' do
-  erb :edit
+put '/food/:storage_type/:id' do
+   food = Food_Item.find(params[:id])
+   food.item_name = params[:item_name]
+   food.purchase_date = params[:purchase_date]
+   food.expiry_date = params[:expiry_date]
+   # if not past expiry date and checked
+   #    status = 'consumed'
+   # elsif not past expiry date and not checked
+   #    status = 'active'
+   # end
+   # food.status = 'stored'
+   food.notification = params[:notification]
+   food.user_id = current_user.id
+   get_storage_type = Storage_Type.find_by(storage_name: params[:storage_type])
+   food.storage_type_id = get_storage_type.id
+   food.save
+   redirect "/food/#{params[:storage_type]}/#{params[:id]}"
 end
 
-get '/food/fridge/delete' do
-  erb :delete
+# Delete
+get '/food/:storage_type/:id/delete' do
+   unless logged_in?
+     redirect '/login'
+     @message = "Login first to add some food"
+   else
+      @food_item = Food_Item.find(params[:id])
+     erb :delete
+   end
 end
+
+# delete '/food/:storage_type/:id' do
+   # unless logged_in?
+   #   redirect '/login'
+   #   @message = "Login first to add some food"
+   # else
+      # @food_item = Food_Item.find(params[:id])
+      # @food_item.destroy
+   # end
+# end
 
 get '/guide' do
   erb :guide

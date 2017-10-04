@@ -1,1 +1,30 @@
-<h1><%= "Delete foods here, different form" %></h1>
+<!-- if current date past expiry date
+   disable checkbox
+   status = 'expired'
+else
+   checkbox active
+   status = 'active'
+end -->
+
+<h1>Are you sure you want to Delete this?</h1>
+<form action="/food/<%= params[:storage_type] %>/<%= @food_item.id %>" method="post">
+   <input type="hidden" name="_method" value="put">
+
+   <label for="food-item">Food Item</label>
+   <input type="text" name="item_name" value="<%= @food_item.item_name %>">
+
+   <label for="purchase-date">Date Purchased</label>
+   <input type="date" name="purchase_date" value="<%= @food_item.purchase_date %>">
+
+   <label for="expiry-date">Expiry Date</label>
+   <input type="date" name="expiry_date" value="<%= @food_item.expiry_date %>">
+
+   <label for="notification">Remind me on</label>
+   <input type="date" name="notification" value="<%= @food_item.notification %>">
+
+   <!-- <label for="finished-food">I have consumed this food before it expired!</label>
+   <input type="checkbox" name="finished_food" value=""> -->
+
+   <button type="submit">Yes</button>
+   <a href="javascript:history.back()">No</a>
+</form>
