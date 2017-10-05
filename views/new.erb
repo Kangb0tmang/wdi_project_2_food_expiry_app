@@ -1,17 +1,34 @@
-<div id="new" class="">
-  <form action="/food/<%= params[:storage_type] %>" method="post">
-    <label for="food-item">Food Item</label>
-    <input type="text" name="item_name" value="">
+<!-- create-item -->
+<div id="create-item" class="main-container">
+  <h1 class="main-title">Add food to your <%= params[:storage_type] %></h1>
+  <p><%= @notification_error %></p>
 
-    <label for="purchase-date">Date Purchased</label>
-    <input type="date" name="purchase_date" value="">
+  <form action="/food/<%= params[:storage_type] %>" method="post" class="create-form">
+    <div class="form-group">
+      <label for="food-item">Food Item</label>
+      <input type="text" name="item_name" value="" required>
+    </div>
 
-    <label for="expiry-date">Expiry Date</label>
-    <input type="date" name="expiry_date" value="">
+    <div class="">
+      <label for="purchase-date">Date Purchased</label>
+      <input type="date" name="purchase_date" value="" required>
+    </div>
 
-    <label for="notification">Remind me on</label>
-    <input type="date" name="notification" value="">
+    <div class="form-group">
+      <label for="expiry-date">Expiry Date</label>
+      <input type="date" name="expiry_date" value="" required>
+    </div>
 
-    <button type="submit">Add Food</button>
+    <div class="form-group">
+      <label for="notification">Remind me on</label>
+      <input type="date" name="notification" value="" required>
+    </div>
+
+    <div class="form-group">
+      <button type="submit">Add Food</button>
+      <a href="javascript:history.back()">Back</a>
+    </div>
+
   </form>
 </div>
+<!-- end create-item -->

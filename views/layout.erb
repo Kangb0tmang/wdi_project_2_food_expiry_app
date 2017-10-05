@@ -5,25 +5,23 @@
   <title>Your Food Tracker</title>
   <link rel="stylesheet" href="/stylesheets/main.css">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <link href="https://fonts.googleapis.com/css?family=Pangolin" rel="stylesheet">
 </head>
 
 <header>
-  <h1>Don't let your Food go Bad on you!</h1>
-  <nav>
+  <h1 class="site-title">Don't let your food go bad on you!</h1>
+  <nav id="nav">
     <div class="menu-left">
-      <ul>
+      <ul class="main-menu">
         <li><a href="/">Home</a></li>
         <li><a href="/about">About</a></li>
 
-          <% if logged_in? %>
-             <li><a href="/food">Food</a>
-                <ul>
-                   <li><a href="/food/fridge">Fridge</a></li>
-                   <li><a href="/food/freezer">Freezer</a></li>
-                   <li><a href="/food/pantry">Pantry</a></li>
-                </ul>
-             </li>
-          <% end %>
+        <% if logged_in? %>
+          <li><a href="/food">Food</a></li>
+          <li><a href="/food/fridge">Fridge</a></li>
+          <li><a href="/food/freezer">Freezer</a></li>
+          <li><a href="/food/pantry">Pantry</a></li>
+        <% end %>
 
         <li><a href="/guide">Guide</a></li>
       </ul>
@@ -31,8 +29,10 @@
 
     <div class="menu-right">
       <% if logged_in? %>
-        Logged in as <a href="/my_account"><%= current_user.name %></a>
-        <form action="/session" method="post">
+      <div class="logged-in">
+        <span>Logged in as: </span><a href="/my_account"><%= current_user.name %></a>
+      </div>
+        <form class="logout-button" action="/session" method="post">
           <input type="hidden" name="_method" value="delete">
           <button type="submit">Logout</button>
         </form>
@@ -44,17 +44,7 @@
 </header>
 
   <body>
-
-  <%= yield %>
-<!--
-   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-   <script>
-      $(function(){
-         // Find any date inputs and override their functionality
-         $('input[type="date"]').datepicker();
-      });
-   </script> -->
+    <%= yield %>
   </body>
 
 <footer>

@@ -1,2 +1,2 @@
-class Storage_Type < ActiveRecord::Base
+class StorageType < ActiveRecord::Base
 end

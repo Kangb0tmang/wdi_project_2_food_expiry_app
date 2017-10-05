@@ -1,19 +1,34 @@
-<h1>Are you sure you want to Delete this?</h1>
-<form action="/food/<%= params[:storage_type] %>/<%= @food_item.id %>" method="post">
-  <input type="hidden" name="_method" value="delete">
+<!-- delete-item -->
+<div id="delete-item" class="main-container">
+  <h1 class="main-title">Are you sure you want to delete <%= @food_item.item_name %>?</h1>
 
-  <label for="food-item">Food Item</label>
-  <input type="text" name="item_name" value="<%= @food_item.item_name %>">
+  <form action="/food/<%= params[:storage_type] %>/<%= @food_item.id %>" method="post" class="delete-form">
+    <input type="hidden" name="_method" value="delete">
 
-  <label for="purchase-date">Date Purchased</label>
-  <input type="date" name="purchase_date" value="<%= @food_item.purchase_date %>">
+    <div class="form-group">
+      <label for="food-item">Food Item</label>
+      <input type="text" name="item_name" value="<%= @food_item.item_name %>">
+    </div>
 
-  <label for="expiry-date">Expiry Date</label>
-  <input type="date" name="expiry_date" value="<%= @food_item.expiry_date %>">
+    <div class="form-group">
+      <label for="purchase-date">Date Purchased</label>
+      <input type="date" name="purchase_date" value="<%= @food_item.purchase_date %>">
+    </div>
 
-  <label for="notification">Remind me on</label>
-  <input type="date" name="notification" value="<%= @food_item.notification %>">
+    <div class="form-group">
+      <label for="expiry-date">Expiry Date</label>
+      <input type="date" name="expiry_date" value="<%= @food_item.expiry_date %>">
+    </div>
 
-  <button type="submit">Yes</button>
-  <a href="/food/<%= params[:storage_type] %>/<%= @food_item.id %>">No</a>
-</form>
+    <div class="form-group">
+      <label for="notification">Remind me on</label>
+      <input type="date" name="notification" value="<%= @food_item.notification %>">
+    </div>
+
+    <div class="form-group">
+      <button type="submit">Yes</button>
+      <a href="javascript:history.back()">No</a>
+    </div>
+  </form>
+</div>
+<!-- end delete-item -->

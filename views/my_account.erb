@@ -1,1 +1,15 @@
-<h1><%= current_user.name %></h1>
+<!-- user-account -->
+<div id="user-account" class="main-container">
+  <h1 class="main-title"><%= current_user.name %></h1>
+  <% @user_food.each do |food| %>
+  <div class="user-food-item-wrapper">
+    <img src="http://morganfillman.space/150/150" alt="">
+    <div class="item-details">
+      <%= food.item_name %>
+      <%= food.storage_type.storage_name %>
+    </div>
+  </div>
+  <% end %>
+  <div></div>
+</div>
+<!-- end user-account -->

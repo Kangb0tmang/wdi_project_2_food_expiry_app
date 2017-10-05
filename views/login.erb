@@ -1,26 +1,50 @@
-<h1>Login</h1>
-<p><%= @message %></p>
+<!-- login-register -->
+<div id="login-register" class="main-container">
+  <div class="create-user-container">
+    <h1 class="main-title">Register</h1>
+    <form action="/create_user" method="post" class="create-user-form">
+      <div class="form-group">
+        <label for="">Name</label>
+        <input type="text" name="name" required>
+      </div>
 
-<form action="/session" method="post">
-  <label for="">Email</label>
-  <input type="text" name="email" required>
+      <div class="form-group">
+        <label for="">Email</label>
+        <input type="text" name="email" required>
+      </div>
 
-  <label for="">Password</label>
-  <input type="password" name="password" required>
+      <div class="form-group">
+        <label for="">Password</label>
+        <input type="password" name="password" required>
+      </div>
 
-  <button type="submit">Login</button>
-</form>
+      <button type="submit">Register</button>
+    </form>
 
-<h1>Register</h1>
-<form action="/login" method="post">
-  <label for="">Name</label>
-  <input type="text" name="name" required>
+    <div class="errors">
+      <% if @email_error %>
+      <p>Sorry! Email already taken</p>
+      <% end %>
+    </div>
+  </div>
 
-  <label for="">Email</label>
-  <input type="text" name="email" required>
+  <div class="login-container">
+    <h1 class="main-title">Login</h1>
+    <p><%= @message %></p>
 
-  <label for="">Password</label>
-  <input type="password" name="password" required>
+    <form action="/session" method="post" class="login-form">
+      <div class="form-group">
+        <label for="">Email</label>
+        <input type="text" name="email" required>
+      </div>
 
-  <button type="submit">Register</button>
-</form>
+      <div class="form-group">
+        <label for="">Password</label>
+        <input type="password" name="password" required>
+      </div>
+
+      <button type="submit">Login</button>
+    </form>
+  </div>
+</div>
+<!-- end login-register -->
