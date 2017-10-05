@@ -1,22 +1,23 @@
 <div class="">
-   <h1><%= "Your fridge is empty!" %></h1>
-   <a href="/food/<%= params[:storage_type] %>/new">Add some food now!</a>
+  <h1><%= "Your #{params[:storage_type]} is empty!" %></h1>
+  <img src="/img/empty-<%= params[:storage_type] %>.gif" alt="">
+  <a href="/food/<%= params[:storage_type] %>/new">Add some food now!</a>
 </div>
 
 <div id="all-food" class="">
-   <h1>Food in your <%= params[:storage_type] %></h1>
-   <% current_time = Time.new %>
-   <% @all_food.each do |item| %>
-   <article class="">
-      <img src="http://morganfillman.space/g/150/150" alt="">
-      <h3><a href="/food/<%= params[:storage_type] %>/<%= item.id %>"><%= item.item_name %></a></h3>
-      <% @days_left = (item.expiry_date - current_time.strftime("%Y-%m-%d").to_date).to_i.abs%>
-      <h4><%= "#{@days_left} days until food expires" %></h4>
+  <h1>Food in your <%= params[:storage_type] %></h1>
+  <% current_time = Time.new %>
+  <% @all_food.each do |item| %>
+  <article class="">
+    <img src="http://morganfillman.space/g/150/150" alt="">
+    <h3><a href="/food/<%= params[:storage_type] %>/<%= item.id %>"><%= item.item_name %></a></h3>
+    <% @days_left = (item.expiry_date - current_time.strftime("%Y-%m-%d").to_date).to_i%>
+    <h4><%= "#{@days_left} days until food expires" %></h4>
       <div class="">
-         <a href="/food/<%= params[:storage_type] %>/new">Add more food!</a>
-         <a href="/food/<%= params[:storage_type] %>/<%= item.id %>/edit">Edit</a>
-         <a href="/food/<%= params[:storage_type] %>/<%= item.id %>/delete">Delete</a>
+        <a href="/food/<%= params[:storage_type] %>/new">Add more food!</a>
+        <a href="/food/<%= params[:storage_type] %>/<%= item.id %>/edit">Edit</a>
+        <a href="/food/<%= params[:storage_type] %>/<%= item.id %>/delete">Delete</a>
       </div>
-   </article>
-   <% end %>
+  </article>
+  <% end %>
 </div>

@@ -1,28 +1,25 @@
-<!-- if current date past expiry date
-   disable checkbox
-   status = 'expired'
-else
-   checkbox active
-   status = 'active'
-end -->
+<% current_time = Time.new %>
+<% @days_left = (@food_item.expiry_date - current_time.strftime("%Y-%m-%d").to_date).to_i%>
 
 <form action="/food/<%= params[:storage_type] %>/<%= @food_item.id %>" method="post">
-   <input type="hidden" name="_method" value="delete">
+  <input type="hidden" name="_method" value="put">
 
-   <label for="food-item">Food Item</label>
-   <input type="text" name="item_name" value="<%= @food_item.item_name %>">
+  <label for="food-item">Food Item</label>
+  <input type="text" name="item_name" value="<%= @food_item.item_name %>">
 
-   <label for="purchase-date">Date Purchased</label>
-   <input type="date" name="purchase_date" value="<%= @food_item.purchase_date %>">
+  <label for="purchase-date">Date Purchased</label>
+  <input type="date" name="purchase_date" value="<%= @food_item.purchase_date %>">
 
-   <label for="expiry-date">Expiry Date</label>
-   <input type="date" name="expiry_date" value="<%= @food_item.expiry_date %>">
+  <label for="expiry-date">Expiry Date</label>
+  <input type="date" name="expiry_date" value="<%= @food_item.expiry_date %>">
 
-   <label for="notification">Remind me on</label>
-   <input type="date" name="notification" value="<%= @food_item.notification %>">
+  <label for="notification">Remind me on</label>
+  <input type="date" name="notification" value="<%= @food_item.notification %>">
 
-   <!-- <label for="finished-food">I have consumed this food before it expired!</label>
-   <input type="checkbox" name="finished_food" value=""> -->
+  <% if @days_left > 0 %>
+    <label for="finished-food">I have consumed this food before it expired!</label>
+    <input type="checkbox" name="finished_food" value="checked">
+  <% end %>
 
-   <button type="submit">Update Food</button>
+  <button type="submit">Update Food</button>
 </form>

@@ -8,44 +8,44 @@
 </head>
 
 <header>
-   <h1>Don't let your Food go Bad on you!</h1>
-   <nav>
-      <div class="menu-left">
-         <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
+  <h1>Don't let your Food go Bad on you!</h1>
+  <nav>
+    <div class="menu-left">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
 
-            <% if logged_in? %>
-               <li><a href="/food">Food</a>
-                  <ul>
-                     <li><a href="/food/fridge">Fridge</a></li>
-                     <li><a href="/food/freezer">Freezer</a></li>
-                     <li><a href="/food/pantry">Pantry</a></li>
-                  </ul>
-               </li>
-            <% end %>
+          <% if logged_in? %>
+             <li><a href="/food">Food</a>
+                <ul>
+                   <li><a href="/food/fridge">Fridge</a></li>
+                   <li><a href="/food/freezer">Freezer</a></li>
+                   <li><a href="/food/pantry">Pantry</a></li>
+                </ul>
+             </li>
+          <% end %>
 
-            <li><a href="/guide">Guide</a></li>
-         </ul>
-      </div>
+        <li><a href="/guide">Guide</a></li>
+      </ul>
+    </div>
 
-      <div class="menu-right">
-         <% if logged_in? %>
-            Logged in as <%= current_user.name %>
-            <form action="/session" method="post">
-               <input type="hidden" name="_method" value="delete">
-               <button type="submit">Logout</button>
-            </form>
-         <% else %>
-            <a href="/login">Login</a>
-         <% end %>
-      </div>
-   </nav>
+    <div class="menu-right">
+      <% if logged_in? %>
+        Logged in as <a href="/my_account"><%= current_user.name %></a>
+        <form action="/session" method="post">
+          <input type="hidden" name="_method" value="delete">
+          <button type="submit">Logout</button>
+        </form>
+      <% else %>
+        <a href="/login">Login</a>
+      <% end %>
+    </div>
+  </nav>
 </header>
 
-   <body>
+  <body>
 
-   <%= yield %>
+  <%= yield %>
 <!--
    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
@@ -55,8 +55,9 @@
          $('input[type="date"]').datepicker();
       });
    </script> -->
-   </body>
+  </body>
 
 <footer>
-   <span>&copy; 2017 Jon Kang</span>
+  <span>&copy; 2017 Jon Kang</span>
 </footer>
+</html>
