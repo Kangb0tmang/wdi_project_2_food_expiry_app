@@ -1,7 +1,6 @@
 require 'active_record'
 
-options =
-{
+options = {
   adapter: 'postgresql',
   database: 'foodtracker'
 }
