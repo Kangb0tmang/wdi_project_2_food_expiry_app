@@ -152,7 +152,6 @@ put '/food/:storage_type/:id' do
   food.storage_type_id = get_storage_type.id
   food.save
   redirect "/food/#{params[:storage_type]}/#{params[:id]}"
-  # binding.pry
 end
 
 # Delete

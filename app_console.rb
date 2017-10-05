@@ -5,5 +5,4 @@ require_relative 'models/guide'
 require_relative 'models/storage_type'
 require_relative 'models/user'
 
-binding.pry
 puts 'Ready'
