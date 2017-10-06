@@ -1,10 +1,10 @@
 <!-- food-page -->
 <div id="food" class="main-container">
-  <h1 class="main-title"><%= "Where do you want to store your food?" %></h1>
+  <h1 class="main-title"><%= "Where do you want to store your food #{current_user.name} ?" %></h1>
   <!-- view-fridge -->
   <div class="view-fridge storage-type">
     <div class="storage-type-image">
-      <img src="/img/storage_fridge.jpg" alt="">
+      <img src="/img/storage_fridge.jpg" alt="Fridge">
     </div>
     <a href="/food/fridge">Fridge</a>
   </div>
@@ -13,7 +13,7 @@
   <!-- view-freezer -->
   <div class="view-freezer storage-type">
     <div class="storage-type-image">
-      <img src="/img/storage_freezer.jpg" alt="">
+      <img src="/img/storage_freezer.jpg" alt="Freezer">
     </div>
     <a href="/food/freezer">Freezer</a>
   </div>
@@ -22,7 +22,7 @@
   <!-- view-pantry -->
   <div class="view-pantry storage-type">
     <div class="storage-type-image">
-      <img src="/img/storage_pantry.jpg" alt="">
+      <img src="/img/storage_pantry.jpg" alt="Pantry">
     </div>
     <a href="/food/pantry">Pantry</a>
   </div>

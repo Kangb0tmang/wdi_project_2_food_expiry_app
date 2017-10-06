@@ -8,6 +8,7 @@
 
 a
 {
+  text-transform: capitalize;
   text-decoration: none;
 }
 
@@ -58,7 +59,7 @@ ul.main-menu li
 {
   padding: 5px 10px;
   display: inline-block;
-  width: 11%;
+  width: auto;
 }
 
 .menu-right
@@ -84,13 +85,47 @@ ul.main-menu li
 
 .main-title
 {
+  width: 80%;
   font-size: 40px;
+  text-align: center;
+  display: inline-block;
 }
 
 /* Home Page */
 .home-image
 {
-  max-width: 50%
+  max-width: 70%
+}
+
+/* Food Page */
+.storage-type
+{
+  width: 350px;
+  display: inline-block;
+}
+
+.storage-type-image
+{
+  height: auto;
+  width: 90%;
+}
+
+.storage-type-image > img
+{
+  height: auto;
+  width: 100%;
+}
+
+/* Storage Type View All Items */
+.hidden
+{
+  display: none;
+}
+
+.gif-container
+{
+  height: 300px;
+  width: auto;
 }
 
 .gif-container > a
@@ -98,17 +133,23 @@ ul.main-menu li
   margin-top: 20px;
 }
 
-/* Food Page */
-.hidden
+.no-food-gif
 {
-  display: none;
+  height: 100%;
+  width: auto;
 }
 
-/* Storage Type View All Items */
 .storage-item-wrapper
 {
-  width: 25%;
+  width: 20%;
+  margin: 20px 0;
   display: inline-block;
+}
+
+/* Single Item View */
+#single-item h2
+{
+  text-transform: capitalize;
 }
 
 /* Login/Register Page */
@@ -143,7 +184,13 @@ ul.main-menu li
 .user-food-item-wrapper
 {
   width: 30%;
+  margin: 20px 0;
   display: inline-block;
+}
+
+.item-details > a
+{
+  display: block;
 }
 
 /* CRUD Forms */

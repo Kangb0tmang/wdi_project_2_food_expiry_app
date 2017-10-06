@@ -1,13 +1,37 @@
+<% if @user_food.size > 0 %>
+  <% @empty = "hidden" %>
+  <% @storage = "" %>
+<% elsif @user_food.empty? %>
+  <% @empty = "" %>
+  <% @storage = "hidden" %>
+<% end %>
+
+<!-- user-no-items -->
+<div id="user-no-items" class="main-container <%= @empty %>">
+  <h1 class="main-title"><%= "You have no food #{current_user.name}" %></h1>
+  <img src="/img/error_page.gif" alt="">
+</div>
+<!-- end user-no-items -->
+
 <!-- user-account -->
-<div id="user-account" class="main-container">
-  <h1 class="main-title"><%= current_user.name %></h1>
+<div id="user-account" class="main-container <%= @storage %>">
+  <h1 class="main-title"><%= "All your food #{current_user.name}" %></h1>
   <% @user_food.each do |food| %>
+  <% user_days_left = (food.expiry_date - new_time.strftime('%Y-%m-%d').to_date).to_i %>
   <div class="user-food-item-wrapper">
-    <img src="http://morganfillman.space/150/150" alt="">
+    <img src="/img/small_<%= food.storage_type.storage_name %>.jpg" alt="">
     <div class="item-details">
-      <%= food.item_name %>
-      <%= food.storage_type.storage_name %>
+      <a href="/food/<%= food.storage_type.storage_name %>/<%= food.id %>"><%= food.item_name %></a>
+      <a href="/food/<%= food.storage_type.storage_name %>"><%= food.storage_type.storage_name %></a>
     </div>
+
+
+    <% if user_days_left <= 0 %>
+      <%= "#{user_days_left.abs} days past expiry date" %>
+    <% else %>
+      <%= "#{user_days_left} days until food expires" %>
+    <% end %>
+
   </div>
   <% end %>
   <div></div>

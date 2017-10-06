@@ -1,5 +1,13 @@
+<% if @all_food.size > 0 %>
+  <% @empty = "hidden" %>
+  <% @storage = "" %>
+<% elsif @all_food.empty? %>
+  <% @empty = "" %>
+  <% @storage = "hidden" %>
+<% end %>
+
 <!-- no-food -->
-<div id ="no-food" class="main-container">
+<div id ="no-food" class="main-container <%= @empty %>">
   <h1 class="main-title"><%= "Your #{params[:storage_type]} is empty!" %></h1>
   <article class="">
     <div class="gif-container">
@@ -11,15 +19,19 @@
 <!-- end no-food -->
 
 <!-- food-storage -->
-<div id="food-storage" class="main-container">
+<div id="food-storage" class="main-container <%= @storage %>">
   <h1 class="main-title">Food in your <%= params[:storage_type] %></h1>
   <% @all_food.each do |item| %>
   <% days_remaining_all = (item.expiry_date - new_time.strftime('%Y-%m-%d').to_date).to_i %>
 
   <article class="storage-item-wrapper">
-    <img src="http://morganfillman.space/g/150/150" alt="">
+    <img src="/img/small_<%= params[:storage_type] %>.jpg" alt="<%= params[:storage_type] %>">
     <h3><a href="/food/<%= params[:storage_type] %>/<%= item.id %>"><%= item.item_name %></a></h3>
-    <h4><%= "#{days_remaining_all} days until food expires" %></h4>
+    <% if days_remaining_all <= 0 %>
+      <h4><%= "#{days_remaining_all.abs} days past expiry date" %></h4>
+    <% else %>
+      <h4><%= "#{days_remaining_all} days until food expires" %></h4>
+    <% end %>
       <div class="item-actions">
         <a href="/food/<%= params[:storage_type] %>/new">Add more food!</a>
         <a href="/food/<%= params[:storage_type] %>/<%= item.id %>/edit">Edit</a>

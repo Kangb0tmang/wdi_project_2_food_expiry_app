@@ -30,6 +30,15 @@ helpers do
     end
   end
 
+  def items_count
+    get_storage_type_id = StorageType.find_by(storage_name: params[:storage_type]).id
+    @all_food = FoodItem.all.where(storage_type_id: get_storage_type_id, user_id: current_user.id)
+  end
+
+  def user_items_count
+    @user_food = current_user.food_items
+  end
+
   def new_time
     @new_time = Time.new
   end
@@ -53,7 +62,6 @@ end
 
 post '/session' do
   user = User.find_by(email: params[:email])
-
   if user && user.authenticate(params[:password])
     session[:user_id] = user.id
     redirect '/my_account'
@@ -88,7 +96,8 @@ end
 
 # User when logged in
 get '/my_account' do
-  @user_food = current_user.food_items
+  not_logged_in_redirect
+  user_items_count
   erb :my_account
 end
 
@@ -145,13 +154,11 @@ get '/guide' do
   erb :guide
 end
 
-#======================================================= Refactor this?
 # Storage Type view
 get '/food/:storage_type' do
   new_time
   not_logged_in_redirect
-  get_storage_type_id = StorageType.find_by(storage_name: params[:storage_type]).id
-  @all_food = FoodItem.all.where(storage_type_id: get_storage_type_id, user_id: current_user.id)
+  items_count
   erb :storage
 end
 

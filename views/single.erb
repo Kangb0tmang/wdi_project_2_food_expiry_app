@@ -1,11 +1,15 @@
 <!-- single-item-view -->
 <div id="single-item" class="main-container">
-  <img src="http://morganfillman.space/400/600" alt="">
+  <img src="/img/storage_<%= params[:storage_type] %>.jpg" alt="<%= params[:storage_type] %>">
   <h2><%= @food_item.item_name %></h2>
   <h3>Purchase Date: <%= @food_item.purchase_date.strftime("%d-%m-%Y") %></h3>
   <h3>Expiry Date: <%= @food_item.expiry_date.strftime("%d-%m-%Y") %></h3>
-  <h4><%= @days_left %> days till expiry date</h4>
-  <h4>Remind me on: <%= @food_item.notification.strftime("%A %d-%m-%Y") %></h3>
+  <% if @days_left <= 0 %>
+    <%= "#{@days_left.abs} days past expiry date" %>
+  <% else %>
+    <h4><%= "#{@days_left} days till expiry date" %></h4>
+  <% end %>
+  <h4>Remind me on <%= @food_item.notification.strftime("%A %d-%m-%Y") %></h3>
 
   <!-- action-link -->
   <div class="action-links">
